@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+<body>
+	<form action="/logout">
+		<button>Log Out <%= user.username %></button>
+	</form>
+	<form action="/feeds">
+		<button>Feeds</button>
+	</form>
+
+	<!-- =================================== Question =================================== -->
+	<h3><u>Question :</u></h3>
+	<h4><%= question.content %></h4>
+	<p>Asked by: <%= question.userName %></p>
+
+
+	<!-- Likes -->
+
+	<% var f=0; if(question.likes==null || question.likes==0){ %>
+			Liked By: 0
+		<form action="/feeds/qs/<%= question._id %>/like" method="post">  
+		<button>Like</button> </form>
+	<% f=1;} %> 
+
+	<% if(Found){ %>
+	<form action="/feeds/qs/<%= question._id %>/unlike" method="post">
+		<a href="/feeds/qs/<%= question._id %>/likedBy">LikedBy </a> : <%= question.likes %> 
+		<button>Liked</button> 		
+	</form>
+	<% }else { if(f==0){ %>
+	<form action="/feeds/qs/<%= question._id %>/like" method="post">
+		<a href="/feeds/qs/<%= question._id %>/likedBy">LikedBy </a> : <%= question.likes %> 
+		<button>Like</button> 		
+	</form>
+
+	<% }} %>
+
+
+
+	<!-- ================================== Answer =================================== -->
+	<br><hr>
+	<br>
+	<h3>Post your answer here: </h3>
+
+	<form action="/feeds/<%= question._id %>" method="post">
+		<input type="text" name="content" placeholder="Post your answer herer" required="">
+		<input type="submit" name="submit">
+	</form>
+
+	<br><br>
+
+	<!-- List of answer -->
+	<hr>
+	<div class="text-center">
+		<h3><u>Answers:</u></h3>
+		<% var i=1; %>
+		<% question.answer.forEach((ans)=>{ %>
+			<p><%= i %>) <%= ans.content %> <p> 
+			<p>  -By <%= ans.userName %></p>
+
+			<!-- Likes -->
+			<% var g=0; if(ans.likes==null || ans.likes==0){ %>
+					Liked By: 0
+				<form action="/feeds/ans/<%= question._id %>/<%= ans._id %>/like" method="post">  
+				<button>Like</button> </form>
+			<% g=1;} %> 
+
+			<% if(Found1[i-1]){ %>
+			<form action="/feeds/ans/<%= question._id %>/<%= ans._id %>/unlike" method="post">
+				<a href="/feeds/ans/<%= question._id %>/<%= ans._id %>/likedBy">LikedBy </a> : <%= ans.likes %> 
+				<button>Liked</button> 		
+			</form>
+			<% }else { if(g==0){ %>
+			<form action="/feeds/ans/<%= question._id %>/<%= ans._id %>/like" method="post">
+				<a href="/feeds/ans/<%= question._id %>/<%= ans._id %>/likedBy">LikedBy </a> : <%= ans.likes %> 
+				<button>Like</button> 		
+			</form>
+
+			<% }} %>
+
+		<% ++i;}) %>	
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+<body>
+	<h2>Post Question</h2>
+	<form action="/feeds" method="post">
+		<input type="text" name="content" placeholder="Post Question">
+		<input type="submit" name="submit">
+	</form>
+	<br><br>
+
+	<table class="text-center" border="1">
+			<tr>
+				<th>Sl. no.</th>
+				<th>Question</th>
+				<th>Answer</th>
+			<% var i=1; all.forEach((qs)=>{  %>
+			</tr>
+			<tr>
+				<td> <%= i %></td>
+				<td> <%= qs.content %> </td>
+				<td>
+					<form action="/feeds/<%= qs._id %>">
+						<button>Click here</button>
+					</form>
+				</td>
+			</tr>
+			<% ++i;}) %>			
+		</table>
+</body>
+</html>
