@@ -43,11 +43,13 @@ router.get("/:qid",(req,res)=>{
 })
 
 //Post answer
-router.post("/:qid",(req,res)=>{
+router.post("/:qid/:qcontent",(req,res)=>{
 	var newAnswer = {
 		content:req.body.content,
 		userId:req.user._id,
-		userName:req.user.username
+		userName:req.user.username,
+		qId:req.params.qid,
+		question: req.params.qcontent
 	}
 
 	Answer.create(newAnswer,(err,ans)=>{

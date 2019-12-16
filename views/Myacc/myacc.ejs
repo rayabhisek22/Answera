@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+<body>
+	<a href="/acc">Back</a>
+	<h2>Hello <%= user.username %></h2>
+
+	<br><hr>
+	<h3>Questions asked by you :</h3>
+	<% var i=1; question.forEach((qs)=>{  %>
+		<p><%= i %>. <a href="/feeds/<%= qs._id %>"><%= qs.content %></a></p>
+		<b>Answers : </b><%= qs.answer.length %>
+		<b>Likes: </b>
+		<% if(qs.likes==null){ %> 0 <% }else{ %> <%= qs.likes %> <% } %>		 
+		<a href="/myacc/delete/qs/<%= qs._id %>">Delete</a>
+		<a href="/myacc/update/qs/<%= qs._id %>">Update</a>
+	<% ++i;}) %>
+
+	<br><hr>
+	<h3>Answers by you :</h3>
+	<% var j=1; answer.forEach((ans)=>{  %>
+		<p><%= j %>. <a href="/feeds/<%= ans.qId %>"><%= ans.question %></a></p>
+		<p>Ans: <%= ans.content %></p>
+		<b>Likes: </b>
+		<% if(ans.likes==null){ %> 0 <% }else{ %> <%= ans.likes %> <% } %>
+		<a href="/myacc/delete/ans/<%= ans._id %>">Delete</a>
+		<a href="/myacc/update/ans/<%= ans._id %>">Update</a>
+	<% ++j;}) %>	
+</body>
+</html>

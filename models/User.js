@@ -7,8 +7,9 @@ var schema = mongoose.Schema;
 var userSchema = new schema({
 	username: String,
 	password: String,
+	name : String,
+	scid: String,
 	questionId: [ String ],
-
 	answerId: [ String ]
 })
 

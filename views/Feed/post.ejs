@@ -10,7 +10,9 @@
 	<form action="/feeds">
 		<button>Feeds</button>
 	</form>
-
+	<form action="/myacc">
+		<button>My Account</button>
+	</form>
 	<!-- =================================== Question =================================== -->
 	<h3><u>Question :</u></h3>
 	<h4><%= question.content %></h4>
@@ -45,7 +47,7 @@
 	<br>
 	<h3>Post your answer here: </h3>
 
-	<form action="/feeds/<%= question._id %>" method="post">
+	<form action="/feeds/<%= question._id %>/<%= question.content %>" method="post">
 		<input type="text" name="content" placeholder="Post your answer herer" required="">
 		<input type="submit" name="submit">
 	</form>

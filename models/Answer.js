@@ -5,6 +5,8 @@ var schema = mongoose.Schema;
 
 var answerSchema = new schema({
 	content: String,
+	qId: String,
+	question: String,
 	userId: String,
 	userName: String,
 	likes: Number,

@@ -1,4 +1,5 @@
 var express = require('express');
+
 	
 var router = express.Router();
 
@@ -15,8 +16,8 @@ router.use(authRoutes);
 
 //Features
 var acc = require('./Acc/acc');
-var myaccRoutes = require('./Myacc/myacc');
-var feedsRoutes = require('./Feeds/feeds');
+var myaccRoutes = require('./Myacc/index');
+var feedsRoutes = require('./Feeds/index');
 
 //router.use("/acc",isLoggedIn,acc);
 router.use("/myacc",isLoggedIn,myaccRoutes);
