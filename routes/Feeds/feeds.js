@@ -26,7 +26,6 @@ router.post("/",(req,res)=>{
 		userId:req.user._id,
 		userName:req.user.username
 	}
-
 	Question.create(newQuestion,(err,qs)=>{
 		if(err) console.log("E1 " + err);
 		else{
@@ -35,7 +34,7 @@ router.post("/",(req,res)=>{
 				user.save((err,u)=>{
 					if(err) console.log("E2  "+err);
 					else{
-						res.redirect("/feeds/x");
+						res.redirect("/feeds/requestUsers/"+qs._id);
 					}					
 				});
 			})

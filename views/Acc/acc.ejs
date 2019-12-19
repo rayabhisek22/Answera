@@ -7,57 +7,46 @@
 	<a href="/acc">Back</a>
 	<a href="/feeds">Feeds</a>
 	<% if(user.name == null){ %>
-		<h2>Hello <%= user.username %></h2>
+		<h2>Profile : <%= user.username %></h2>
 	<% }else{ %>
-		<h2>Hello <%= user.name %></h2>
+		<h2>Profile : <%= user.name %></h2>
 	<% } %>
-	
+
 	<h4>username : <%= user.username %></h4>
 	<h4>Name : <%= user.name %></h4>
 	<h4>Scholar Id : <%= user.scid %></h4>
 	<b>Bio :</b> <%= user.bio %><br><br>
-	
+
 	<b><a href="/acc/followers/<%=user._id%>">Followers: </a></b> <%if(user.numFollowers==null){%> 0 <% } %> <%= user.numFollowers %>
 	<b><a href="/acc/following/<%=user._id%>">Following: </a></b> <%if(user.numFollowing==null){%> 0 <% } %> <%= user.numFollowing %><br><br>
 
-	<form action="/myacc/editProfile">
-		<button>Edit Profile</button>
+	<% if(following==1){ %>
+	<form action="/acc/unfollow/<%=user._id%>">
+		<button>Following</button>
 	</form>
+	<% }else{ %>
+	<form action="/acc/follow/<%=user._id%>">
+		<button>Follow</button>
+	</form>
+	<% } %>
+
 	<br><hr>
-	<!-- Questions for you ======================================================= -->
-	<h3>Questions for you</h3>
-	<ol>
-		<% user.questionForYou.forEach((qs)=>{ %>
-			<li>
-				<a href="/feeds/<%=qs.qId%>"><%=qs.question%></a><br>
-				Asked by: <a href="/acc/<%=qs.userId%>"><%=qs.userName%></a>
-				<form action="/myacc/deleteRequest/<%=qs.qId%>"><button>Delete</button></form>
-			</li>
-		<% }) %>
-	</ol>
-	<hr>
-	<!--Question asked by you ======================================================-->
-	<h3>Questions asked by you :</h3>
+	<h3>Questions asked by <%= user.username %> :</h3>
 	<% var i=1; question.forEach((qs)=>{  %>
 		<p><%= i %>. <a href="/feeds/<%= qs._id %>"><%= qs.content %></a></p>
 		<b>Answers : </b><%= qs.answer.length %>
 		<b>Likes: </b>
 		<% if(qs.likes==null){ %> 0 <% }else{ %> <%= qs.likes %> <% } %>		 
-		<a href="/myacc/delete/qs/<%= qs._id %>">Delete</a>
-		<a href="/myacc/update/qs/<%= qs._id %>">Update</a>
 	<% ++i;}) %>
 
 	<br><hr>
-
-	<!-- Answers by you ============================================================== -->
-	<h3>Answers by you :</h3>
+	<h3>Answers by <%= user.username %> :</h3>
 	<% var j=1; answer.forEach((ans)=>{  %>
 		<p><%= j %>. <%= ans.question %></p>
 		<p>Ans: <%= ans.content %></p>
 		<b>Likes: </b>
 		<% if(ans.likes==null){ %> 0 <% }else{ %> <%= ans.likes %> <% } %>
-		<a href="/myacc/delete/ans/<%= ans._id %>">Delete</a>
-		<form action="/post/<%= ans._id %>"><button>Show More</button></form>
+		<form action="/post/<%= ans._id %>"><button>Show More</button></form><br>
 	<% ++j;}) %>	
 </body>
 </html>

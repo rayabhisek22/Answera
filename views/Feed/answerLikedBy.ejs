@@ -4,9 +4,16 @@
 	<title>Home Page</title>
 </head>
 <body>
-	<form action="/feeds">
-		<button>Back</button>
-	</form>
+	<%if(f==0){ %>
+		<form action="/feeds/<%= qid %>">
+			<button>Back</button>
+		</form>
+	<% }else{ %>
+		<form action="/post/<%= aid %>">
+			<button>Back</button>
+		</form>
+	<% } %>
+	
 	<h2>Liked By :</h2>
 
 	<% var i =1; %>

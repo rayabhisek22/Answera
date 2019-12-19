@@ -45,15 +45,27 @@ router.post("/login", passport.authenticate("local",
 
 //register
 router.get("/register",(req,res)=>{
-	res.render("register");
+	res.render("register",{f:0});
 })
 
-router.post("/register",(req,res)=>{
+
+function fun1(req,res,next){
+	User.find({username:req.body.username},(err,user)=>{
+		if(user.length==0){
+			next()
+		} else
+		{
+			res.render("./register",{f:1})
+		}
+	})
+}
+
+router.post("/register",fun1,(req,res)=>{
 	var newUser = new User({
 		username : req.body.username
 		});
 
-	  User.register(newUser,req.body.password,function(err,user){
+    User.register(newUser,req.body.password,function(err,user){
 	    if(err){
 	      console.log(err);
 	      res.render("register");
@@ -69,7 +81,7 @@ router.post("/register",(req,res)=>{
 //logout
 router.get("/logout",function(req,res){
   req.logout();
-  res.redirect("/")
+  res.redirect("/") 
 })
 
 //middleware for login

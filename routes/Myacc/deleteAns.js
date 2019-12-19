@@ -15,7 +15,6 @@ function fun1(req,res,next){
 			user.save((err)=>{
 				if(err) console.log(err);
 				else {
-					console.log("a1")
 					next();
 				}
 			})
@@ -35,7 +34,6 @@ function fun2(req,res,next){
 									qs.save((err)=>{
 										if(err) console.log(err);
 										else{
-											console.log("a2");
 											next();
 										}
 									})
@@ -51,7 +49,6 @@ function fun3(req,res,next){
 	Answer.findByIdAndRemove(req.params.aid,(err)=>{
 		if(err) console.log(err);
 		else{
-			console.log("a3");
 			next();
 		}
 	})
@@ -59,18 +56,14 @@ function fun3(req,res,next){
 
 
 
-
-
-
-
 var funarray = [fun1,fun2,fun3]
 
-router.get("/x2",(req,res)=>{
+router.get("/x1",(req,res)=>{
 	res.redirect("/myacc")
 })
 
 router.get("/:aid",funarray,(req,res)=>{
-	res.redirect("/myacc/delete/ans/x2")
+	res.redirect("/myacc/delete/ans/x1")
 })
 
 

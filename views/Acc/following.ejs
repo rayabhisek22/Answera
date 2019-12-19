@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h2>Following : <%=user.numFollowing%></h2>
+	<ol>
+		<% user.following.forEach((acc)=>{ %>
+			<li><a href="/acc/<%=acc.userId%>"><%=acc.username%></a></li>
+		<% }) %>
+	</ol>
+</body>
+</html>

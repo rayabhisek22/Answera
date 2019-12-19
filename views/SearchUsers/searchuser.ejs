@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<% if(found==0){ %>
+		<h4>No Users found</h4>
+	<% }else{ %>
+	<h2>Users :</h2>
+	<ol>
+		<% users.forEach((user)=>{ %>
+			<li>
+				<a href="acc/<%=user._id%>">
+					<% if(user.name==null){ %>
+			 			<%=user.username%> 
+					<% }else{ %> 
+						<%=user.name%>
+					<% } %>
+				</a>
+			</li>
+		<% }) %>
+	</ol>
+	<% } %>
+</body>
+</html>

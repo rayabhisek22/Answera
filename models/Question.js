@@ -9,6 +9,7 @@ var questionSchema = new schema({
 	userName: String,
 	likes: Number,
 	likedBy : [String],
+	userRequested: [String],
 	answer: [{
           type:mongoose.Schema.Types.ObjectId,
           ref:"Answer"

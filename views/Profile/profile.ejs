@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+<body>
+	<h3>Top Rated profiles:</h3>
+	<% if(users!=null){ %>
+	<ol>
+		<% users.forEach((user)=>{ %>
+			<li><a href="/acc/<%=user._id%>"><%=user.username%></a></li>
+			Followers: <%=user.numFollowers%> Answers: <%=user.answerId.length%><br><br>
+		<% }) %>
+	</ol>
+	<% } %>
+</body>
+</html>

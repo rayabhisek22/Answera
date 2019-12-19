@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+<body>
+	<a href="/acc/<%= answer.userId %>">Back</a>
+	<h2><a href="/feeds/<%= answer.qId %>"><%= answer.question %></a></h2>
+	<b>Answer :</b>
+	<p><%= answer.content %></p>
+
+
+	<!-- For handling likes -->
+	<% var g=0; if(answer.likes==null || answer.likes==0){ %>
+			Liked By: 0
+		<form action="/feeds/ans/<%= answer.qId %>/<%= answer._id %>/like/post" method="post">  
+		<button>Like</button> </form>
+	<% g=1;} %> 
+
+	<% if(found){ %>
+	<form action="/feeds/ans/<%= answer.qId %>/<%= answer._id %>/unlike/post" method="post">
+		<a href="/feeds/ans/<%= answer.qId %>/<%= answer._id %>/likedBy/post">LikedBy </a> : <%= answer.likes %> 
+		<button>Liked</button> 		
+	</form>
+	<% }else { if(g==0){ %>
+	<form action="/feeds/ans/<%= answer.qId %>/<%= answer._id %>/like/post" method="post">
+		<a href="/feeds/ans/<%= answer.qId %>/<%= answer._id %>/likedBy/post">LikedBy </a> : <%= answer.likes %> 
+		<button>Like</button> 		
+	</form>
+	<%  }} %>
+
+	<!-- For handling update -->
+	<% if(i_m_user){ %>
+		<a href="/myacc/update/ans/<%= answer._id %>">Update</a>
+		<a href="/myacc/delete/ans/<%= answer._id %>">Delete</a>
+	<% } %>
+
+</body>
+</html>

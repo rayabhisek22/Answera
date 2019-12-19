@@ -2,7 +2,8 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	LocalStrategy = require('passport-local');
+	LocalStrategy = require('passport-local'),
+	methodOverride = require('method-override');
 
 var app = express();
 
@@ -17,7 +18,9 @@ mongoose.connect(url, {useNewUrlParser: true, useFindAndModify:false, useUnified
 
 //App config=======================================
 app.set("view engine","ejs");
+app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 //Routes===========================================
 var indexRoutes = require("./routes/index");

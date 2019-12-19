@@ -3,6 +3,10 @@ var router = express.Router();
 
 //ROUTES========================
 
+//request user
+var requestUsers = require('./requestUsers')
+router.use("/requestUsers",requestUsers)
+
 //Likes on Questions (All features of likes)
 var likesOnQuestionRoutes = require('./likesOnQuestion');
 router.use("/qs",likesOnQuestionRoutes);

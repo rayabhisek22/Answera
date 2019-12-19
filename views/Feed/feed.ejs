@@ -5,30 +5,31 @@
 </head>
 <body>
 	<a href="/acc">Go Back</a>
+
+	<h3>Search Users</h3>
+	<form action="/searchuser" method="post">
+		<input type="text" name="username" placeholder="username" required="">
+		<input type="submit" name="submit">
+	</form>
+
+	<a href="/searchuser">Search all users</a>
+	<a href="/profile">Top rated profiles</a>
 	<h2>Post Question</h2>
 	<form action="/feeds" method="post">
-		<input type="text" name="content" placeholder="Post Question">
-		<input type="submit" name="submit">
+		<textarea name="content" rows="5" cols="100" placeholder="Post Question" required=""></textarea> <br>
+		<button>Post</button>
 	</form>
 	<br><br>
 
-	<table class="text-center" border="1">
-			<tr>
-				<th>Sl. no.</th>
-				<th>Question</th>
-				<th>Answer</th>
-			<% var i=1; all.forEach((qs)=>{  %>
-			</tr>
-			<tr>
-				<td> <%= i %></td>
-				<td> <%= qs.content %> </td>
-				<td>
-					<form action="/feeds/<%= qs._id %>">
-						<button>Click here</button>
-					</form>
-				</td>
-			</tr>
-			<% ++i;}) %>			
-		</table>
+	<h2>Feeds</h2>
+	<ul>
+		<% all.forEach((qs)=>{ %>
+		<li>			
+				<h4><a href="/feeds/<%= qs._id %>"><%= qs.content%></a></h4>
+				<b>Asked by: </b> <a href="/acc/<%=qs.userId%>"><%=qs.userName%></a><br>
+				<b>likes: </b> <%=qs.likedBy.length%> Answers: <%=qs.answer.length%>			
+		</li>
+		<% }) %>
+	</ul>
 </body>
 </html>

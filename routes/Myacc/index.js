@@ -7,6 +7,14 @@ var router = express.Router();
 var myaccRoutes = require('./myacc')
 router.use(myaccRoutes);
 
+//deleteRequest
+var deleteRequestRoutes = require('./deleteRequest')
+router.use("/deleteRequest",deleteRequestRoutes)
+
+//edit profile
+var editProfileRoutes = require('./editProfile')
+router.use("/editProfile",editProfileRoutes)
+
 //delete answers
 var deleteAnsRoutes = require('./deleteAns')
 router.use("/delete/ans", deleteAnsRoutes);
@@ -15,8 +23,12 @@ router.use("/delete/ans", deleteAnsRoutes);
 var deleteQsRoutes = require('./deleteQS')
 router.use("/delete/qs", deleteQsRoutes);
 
-//update
-var updateRoutes = require('./update')
-//router.use("/update", updateRoutes)
+//update questions
+var updateQsRoutes = require('./updateQs')
+router.use("/update/qs", updateQsRoutes)
+
+//update answers
+var updateAnsRoutes = require('./updateAns')
+router.use("/update/ans", updateAnsRoutes)
 
 module.exports = router;

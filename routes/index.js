@@ -1,5 +1,4 @@
 var express = require('express');
-
 	
 var router = express.Router();
 
@@ -18,10 +17,16 @@ router.use(authRoutes);
 var acc = require('./Acc/acc');
 var myaccRoutes = require('./Myacc/index');
 var feedsRoutes = require('./Feeds/index');
+var postRoutes = require('./Post/post');
+var searchuserRoutes = require('./SearchUsers/searchuser')
+var profileRoutes = require('./Profile/profile')
 
-//router.use("/acc",isLoggedIn,acc);
+router.use("/acc",isLoggedIn,acc);
 router.use("/myacc",isLoggedIn,myaccRoutes);
 router.use("/feeds",isLoggedIn,feedsRoutes);
+router.use("/post",isLoggedIn,postRoutes);
+router.use("/searchuser",isLoggedIn,searchuserRoutes);
+router.use("/profile",isLoggedIn,profileRoutes);
 
 
 //middleware for login

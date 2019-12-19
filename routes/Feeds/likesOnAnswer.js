@@ -6,7 +6,7 @@ var Question = require('../../models/Question');
 var Answer = require('../../models/Answer');
 
 //Like=================================================
-router.post("/:qid/:aid/like",(req,res)=>{
+router.post("/:qid/:aid/like/:x",(req,res)=>{
 	Answer.findById(req.params.aid,(err,ans)=>{
 		if(err) console.log(err)
 		else{
@@ -24,7 +24,13 @@ router.post("/:qid/:aid/like",(req,res)=>{
 					ans.likedBy.push(req.user._id);
 					ans.save((err,a)=>{
 						if(err) console.log(err);
-						else res.redirect("/feeds/"+req.params.qid);
+						else {
+							if(req.params.x!="post"){
+								res.redirect("/feeds/"+req.params.qid);
+							}else res.redirect("/post/"+req.params.aid)
+							
+						}
+							
 					})
 				}
 				else{
@@ -32,7 +38,13 @@ router.post("/:qid/:aid/like",(req,res)=>{
 					ans.likedBy.push(req.user._id);
 					ans.save((err,a)=>{
 						if(err) console.log(err);
-						else res.redirect("/feeds/"+req.params.qid);
+						else{
+							if(req.params.x!="post"){
+								res.redirect("/feeds/"+req.params.qid);
+							}else res.redirect("/post/"+req.params.aid)
+							
+						} 
+							
 					})
 				}
 			}	
@@ -41,7 +53,7 @@ router.post("/:qid/:aid/like",(req,res)=>{
 })
 
 //Unlike=============================================
-router.post("/:qid/:aid/unlike",(req,res)=>{
+router.post("/:qid/:aid/unlike/:x",(req,res)=>{
 	Answer.findById(req.params.aid,(err,ans)=>{
 		if(err) console.log(err)
 		else{
@@ -51,7 +63,11 @@ router.post("/:qid/:aid/unlike",(req,res)=>{
 					ans.likedBy.remove(user);
 					ans.save((err,a)=>{
 						if(err) console.log(err);
-						else res.redirect("/feeds/"+req.params.qid);
+						else{
+							if(req.params.x!="post"){
+								res.redirect("/feeds/"+req.params.qid);
+							}else res.redirect("/post/"+req.params.aid)
+						} 
 					})
 				}
 			})
@@ -116,8 +132,12 @@ function mapNameAndId(req,res,next){
 	next();
 }
 
-router.get("/:qid/:aid/likedBy",findUserId,findUserName,mapNameAndId,(req,res)=>{
-	res.render("./Feed/answerLikedBy",{User:user});
+router.get("/:qid/:aid/likedBy/:x",findUserId,findUserName,mapNameAndId,(req,res)=>{
+	if(req.params.x!="post"){
+		res.render("./Feed/answerLikedBy",{User:user,f:0,aid:req.params.aid,qid:req.params.qid});
+	}else{
+		res.render("./Feed/answerLikedBy",{User:user,f:1,aid:req.params.aid,qid:req.params.qid});
+	}
 })
 
 

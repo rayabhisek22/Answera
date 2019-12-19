@@ -9,8 +9,15 @@ var userSchema = new schema({
 	password: String,
 	name : String,
 	scid: String,
+	bio : String,
 	questionId: [ String ],
-	answerId: [ String ]
+	answerId: [ String ],
+	followers : [ {username:String,userId:String} ],
+	following : [ {username:String,userId:String} ],
+	numFollowers : Number,
+	numFollowing : Number,
+	questionForYou : [{question:String,qId:String,userId:String,userName:String}]
+	
 })
 
 userSchema.plugin(passportLocalMongoose);

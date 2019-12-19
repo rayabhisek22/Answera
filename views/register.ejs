@@ -5,6 +5,7 @@
 </head>
 <body>
 	<h2>Register</h2>
+	<% if(f==1){ %> <b>Username already exists.</b> Try another <% } %>
 	<form action="/register" method="post">
 		<input type="text" name="username" placeholder="username">
 		<input type="password" name="password" placeholder="password">

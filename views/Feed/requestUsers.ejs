@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Request Users</title>
+</head>
+<body>
+	<h3>Request Users </h3>
+	<form action="/feeds/requestUsers/<%=qid%>" method="post">
+		<b>Select:</b><br>
+		<% user.forEach((u)=>{ %>
+		<% if(u.username!=i_m_user.username){ %>
+			<input type="checkbox" name="id[]" value="<%=u._id%>"><b><%=u.username%></b><br>
+		<% }}) %>
+		<input type="submit" name="submit">
+	</form>
+</body>
+</html>

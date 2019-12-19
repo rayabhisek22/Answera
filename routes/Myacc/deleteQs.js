@@ -12,29 +12,24 @@ function fun1(req,res,next){
 		.then((user,err)=>{
 			if(err) console.log(err)
 			else{
-				user.questionId.forEach((qs)=>{
-					if(qs==req.params.qid){
-						user.questionId.remove(qs)
-						user.save((err,u)=>{
-							if(err) console.log(err)
-							else {
-								console.log("n1")
-								next()
-							}
-						})
+				user.questionId.remove(req.params.qid);
+				user.save((err,u)=>{
+					if(err) console.log(err)
+					else {
+						console.log("n1")
+						next()
 					}
 				})
-				//console.log("n1")
-				//next()
 			}
 		})	
 }
-
+ 
 //function to remove ansId from users
-var user = []
+var user = [], user1 = []
 function fun2(req,res,next){
 	Question.findById(req.params.qid).populate("answer").exec((err,qs)=>{
 		user = []
+		user1 = []
 		qs.answer.forEach((ans)=>{
 			var temp={
 				userId:ans.userId,
@@ -42,7 +37,9 @@ function fun2(req,res,next){
 			}
 			user.push(temp)
 		})
-		//console.log(user)
+		qs.userRequested.forEach((user)=>{
+			user1.push(user);
+		})
 		console.log("n2")
 		next()
 	})
@@ -50,6 +47,9 @@ function fun2(req,res,next){
 
 function fun3(req,res,next){
 	var i=0;
+	if(user.length==0)
+		return next()
+	
 	user.forEach((us)=>{
 		User.findById(us.userId)
 			.then((u,err)=>{
@@ -63,7 +63,7 @@ function fun3(req,res,next){
 							++i;
 							if(i==user.length){
 								console.log("n3")
-								next()
+								return next()
 							}
 						}
 					})
@@ -72,10 +72,40 @@ function fun3(req,res,next){
 	})
 }
 
+//remove questionForYou from all requested users
+function fun4(req,res,next){
+	var i=0;
+	console.log(user1)
+	if(user1.length==0){
+		console.log("AA")
+		return next()
+	}
+	user1.forEach((user)=>{
+		User.findById(user)
+			.then((us,err)=>{
+				us.questionForYou.forEach((qs)=>{
+					if(qs.qId==req.params.qid)
+					{
+						us.questionForYou.remove(qs);
+						us.save((err,u)=>{
+							if(err) console.log(err)
+							else{
+								++i;
+								if(i==user1.length){
+									console.log("AA")
+									next();
+								}
+							}
+						})
+					}
+				})
+			})
+	})
+}
 
 //Function to remove answers from qs
 var ansId = []
-function fun4(req,res,next){
+function fun5(req,res,next){
 	Question.findById(req.params.qid).populate("answers")
 			.exec((err,qs)=>{
 				if(err) console.log(err)
@@ -90,9 +120,12 @@ function fun4(req,res,next){
 			})
 }
 
-function fun5(req,res,next){
+function fun6(req,res,next){
 	var i=0;
 	//ansId.push("1111")
+	if(ansId.length==0)
+		return next()
+
 	ansId.forEach((ans)=>{
 		Answer.findByIdAndRemove(ans,(err)=>{
 			if(err) console.log(err);
@@ -108,7 +141,7 @@ function fun5(req,res,next){
 }
 
 //Function to remove question
-function fun6(req,res,next){
+function fun7(req,res,next){
 	Question.findByIdAndRemove(req.params.qid,(err)=>{
 		if(err) console.log(err);
 		else {
@@ -119,7 +152,7 @@ function fun6(req,res,next){
 	})
 }
 
-var funarray = [fun1,fun2,fun3,fun4,fun5,fun6]
+var funarray = [fun1,fun2,fun3,fun4,fun5,fun6,fun7]
 
 router.get("/x1",(req,res)=>{
 	res.redirect("/myacc")

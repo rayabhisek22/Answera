@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Ans</title>
+</head>
+<body>
+	<a href="/myacc">Back</a>
+	<h2>Edit Question</h2>
+	<form action="/myacc/update/qs/<%= qs._id %>?_method=PUT" method="post">
+		<input type="text" name="Question[content]" value="<%= qs.content %>">
+		<input type="submit" name="submit">
+	</form>
+</body>
+</html>

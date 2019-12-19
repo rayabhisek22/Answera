@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Profile</title>
+</head>
+<body>
+	<a href="/myacc">Back</a>
+	<h2>Edit Profile</h2>
+	<form action="/myacc/editProfile?_method=PUT" method="post">
+		Name:
+		<input type="text" name="User[name]" value="<%= user.name %>">
+		Scholar ID:
+		<input type="text" name="User[scid]" value="<%= user.scid %>"><br><br>
+		Bio:  <br>
+		<textarea name="User[bio]" value="<%= user.bio %>"></textarea> <br>
+		<input type="submit" name="submit">
+	</form>
+</body>
+</html>
