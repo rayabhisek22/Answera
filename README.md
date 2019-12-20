@@ -9,3 +9,6 @@ Steps to run it:
 5. Go to your favourite browser and type - http://localhost:8080
 6. Register your account
 6. Congrats, you are using Answera!
+
+
+PS: The UI part is yet to made. Just a version of backened.
